@@ -1,0 +1,1086 @@
+<!doctype html><html lang="tr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>Dosya Organizasyonu — Tam Ders Notu</title><style>*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:#0b1220;color:#e7edf8;font:16px/1.65 system-ui,-apple-system,Segoe UI,sans-serif}aside{position:fixed;inset:0 auto 0 0;width:278px;background:#111c30;border-right:1px solid #28384e;padding:25px 18px;overflow:auto}main{margin-left:278px;max-width:1150px;padding:42px 54px 90px}.brand{font-size:21px;font-weight:800;color:#fff}.sub{font-size:12px;color:#a6b8d1;margin-bottom:20px}nav a{display:block;color:#aebfd7;text-decoration:none;padding:9px 10px;border-radius:8px;font-size:13px}nav a:hover{background:#223653;color:white}h1{font-size:clamp(30px,4vw,52px);line-height:1.12;letter-spacing:-1.5px;margin:14px 0}h2{font-size:28px;color:#f3f7ff;margin-top:0}h3{font-size:18px;color:#b5d7ff;margin:0 0 7px}p{margin:0 0 10px}.hero{padding:32px;background:linear-gradient(125deg,#1d3555,#172640);border:1px solid #36547b;border-radius:20px;margin-bottom:28px}.pill{display:inline-block;color:#93c5fd;background:#173559;border:1px solid #315b89;border-radius:50px;padding:4px 11px;font-size:12px;font-weight:700}.section{padding:27px;background:#121e30;border:1px solid #273b53;border-radius:17px;margin-bottom:24px;scroll-margin-top:20px}.item{padding:17px 0;border-top:1px solid #293b52}.item:first-of-type{border:0}.note{border-left:3px solid #62a7fb;background:#1a2d46;padding:12px 16px;margin-top:12px;border-radius:0 8px 8px 0;color:#cde4ff}.check{display:flex;gap:10px;align-items:center;color:#8eb6e6;font-size:14px;margin:14px 0}.check input{accent-color:#4c9bf4;width:18px;height:18px}input[type=search]{background:#0b1628;color:white;border:1px solid #36506c;border-radius:10px;padding:12px;width:100%;margin:12px 0}.formula{font-family:ui-monospace,monospace;color:#c8f1de;background:#0a1724;padding:10px 14px;border-radius:9px;display:inline-block}.code{background:#07111e;border:1px solid #263b56;border-radius:11px;padding:17px;overflow:auto;font-size:12px;line-height:1.6;color:#c3f0d3;white-space:pre}.codehead{display:flex;justify-content:space-between;align-items:center;gap:10px;margin-top:15px}button{border:1px solid #456b9a;border-radius:8px;background:#17365c;color:#dcecff;padding:6px 12px;cursor:pointer}button:hover{background:#265180}details{margin:12px 0;background:#0c192a;border:1px solid #29405b;border-radius:9px;padding:10px 14px}summary{cursor:pointer;color:#c9e4ff;font-weight:600}table{width:100%;border-collapse:collapse;margin:16px 0;font-size:14px}td,th{padding:10px;border-bottom:1px solid #32445b;text-align:left}th{color:#93c5fd}#progress{height:7px;border-radius:10px;background:#263b55;overflow:hidden;margin-top:12px}#bar{height:100%;background:#60a5fa;width:0;transition:width .2s}.muted{color:#9fb1ca;font-size:14px}.hidden{display:none!important}footer{color:#8da0b8;font-size:13px;margin-top:25px}@media(max-width:850px){aside{position:relative;width:100%;border-right:0;border-bottom:1px solid #28384e;padding:15px}nav{display:flex;overflow-x:auto}nav a{white-space:nowrap}main{margin:0;padding:20px 14px 50px}.section{padding:20px}.hero{padding:24px}}@media print{aside,button,input,.check{display:none!important}body{background:white;color:#111}main{margin:0;padding:0;max-width:none}.section,.hero{background:white;color:#111;border:1px solid #ddd;break-inside:avoid}.item{border-color:#ddd}h2,h3{color:#111}.code{color:#111;background:#f7f7f7;white-space:pre-wrap}}</style></head><body><aside><div class="brand">📁 Dosya Organizasyonu</div><div class="sub">Hafta 1–7 · Tam tekrar + C++ kodlar</div><input id="search" type="search" placeholder="Konularda ara..." aria-label="Konularda ara"><div class="muted" id="count">0 / 8 bölüm tamamlandı</div><div id="progress"><div id="bar"></div></div><nav><a href="#w01">Hafta 1 · Dosya organizasyonuna giriş</a><a href="#w02">Hafta 2 · Disk yapısı ve erişim maliyeti</a><a href="#w03">Hafta 3 · Dosya işlemleri ve arama</a><a href="#w04">Hafta 4 · Kayıt yapıları ve hashing</a><a href="#w05">Hafta 5 · Dosya sistemleri: inode, FAT, bağlantılar</a><a href="#w06">Hafta 6 · Sıkıştırma: bit, RLE, Huffman, LZ78</a><a href="#w07">Hafta 7 · Computed ve Multiple Chaining</a><a href="#codes">08 · Kod örnekleri (en sonda)</a></nav><p class="muted" style="margin-top:20px">Tamamlanan bölümler bu tarayıcıda saklanır.</p></aside><main><header class="hero"><span class="pill">SINAV ÇALIŞMA NOTU</span><h1>Dosya Organizasyonu<br>Baştan Sona</h1><p>Tanımlar, neden–sonuç ilişkileri, algoritmalar, formüller ve en sonda C++ kod örnekleri.</p><p class="muted">Kaynak: Yüklenen Hafta 1–7 PDF’leri ve Kod Örnekleri PDF’si. Açıklamalar öğretici biçimde yeniden yazılmıştır; birebir slayt dökümü değildir.</p></header><section class="section searchable" id="w01"><span class="pill">HAFTA 1</span><h2>Dosya organizasyonuna giriş</h2><label class="check"><input type="checkbox" class="done" data-id="w01"> Bu bölümü çalıştım</label><article class="item"><h3>Dosya organizasyonu</h3><p>Verileri kalıcı ortamda saklama, düzenleme, arama, güncelleme ve silme yöntemleridir. Hedef yalnızca alan tasarrufu değil, özellikle fiziksel erişim maliyetini azaltmaktır.</p></article><article class="item"><h3>Temel kavramlar</h3><p>Alan (field): tek özellik. Kayıt (record): alanların bütünü. Dosya (file): kayıt topluluğu. Anahtar (key): kaydı tanıtan veya aratan değer. Probe: bir konumu kontrol etme.</p></article><article class="item"><h3>RAM ve disk</h3><p>RAM hızlı ve geçicidir; disk/SSD kalıcı ve görece yavaştır. Az sayıda rastgele erişim, çok sayıda rastgele erişime tercih edilir.</p></article></section><section class="section searchable" id="w02"><span class="pill">HAFTA 2</span><h2>Disk yapısı ve erişim maliyeti</h2><label class="check"><input type="checkbox" class="done" data-id="w02"> Bu bölümü çalıştım</label><article class="item"><h3>Manyetik disk</h3><p>Plaka → yüzey → iz (track) → sektör (sector). Aynı yarıçaptaki izler silindiri (cylinder) oluşturur. Kafa doğru ize gider, sektörün dönmesini bekler ve veriyi aktarır.</p></article><article class="item"><h3>Erişim süresi</h3><p>T = seek time + rotational latency + transfer time. Örnek: 5 + 4 + 1 = 10 ms. SSD’de mekanik seek/rotasyon yoktur.</p></article><article class="item"><h3>Blok, sayfa, tampon</h3><p>Blok disk aktarım/yönetim birimidir; sayfa mantıksal işleme birimi olabilir. Buffer, RAM’de geçici alandır; küçük I/O işlemlerini birleştirip disk erişimini azaltabilir.</p></article></section><section class="section searchable" id="w03"><span class="pill">HAFTA 3</span><h2>Dosya işlemleri ve arama</h2><label class="check"><input type="checkbox" class="done" data-id="w03"> Bu bölümü çalıştım</label><article class="item"><h3>Dosya işlemleri</h3><p>open dosyayı açar; read okur; write yazar; seek konumu değiştirir; tell konumu bildirir; close kapatır; EOF dosya sonuyla ilgilidir. C++: seekg/tellg okuma; seekp/tellp yazma konumu.</p></article><article class="item"><h3>Metin ve ikili kip</h3><p>Metin dosyasında 123 üç karakter olarak saklanabilir. İkili dosyada 32-bit tamsayı tipik olarak 4 bayttır; ikili gösterim platforma bağlı olabilir.</p></article><article class="item"><h3>Sequential search</h3><p>Sırasıyla her kayıt incelenir; sıralama gerekmez. En kötü durumda O(n) karşılaştırma.</p></article><article class="item"><h3>Binary search</h3><p>Sıralı kayıt ve etkin rastgele erişim gerekir. Her adımda aralık ikiye iner; O(log n) karşılaştırma.</p></article><article class="item"><h3>Interpolation search</h3><p>Sıralı sayısal anahtarların dağılımına göre konum tahmin edilir; yaklaşık düzgün dağılımda avantajlı olabilir.</p></article><article class="item"><h3>Self-organizing search</h3><p>Move-to-front: bulunanı başa alır. Transpose: öncekiyle değiştirir. Count: erişim sıklığına göre düzenler.</p></article></section><section class="section searchable" id="w04"><span class="pill">HAFTA 4</span><h2>Kayıt yapıları ve hashing</h2><label class="check"><input type="checkbox" class="done" data-id="w04"> Bu bölümü çalıştım</label><article class="item"><h3>Sabit uzunluklu kayıt</h3><p>Her kayıt B baytsa, başlangıç ofseti + RRN × B ile konuma gidilir. Avantaj: doğrudan erişim. Dezavantaj: kullanılmayan alan.</p></article><article class="item"><h3>Değişken uzunluklu kayıt</h3><p>Delimiter (ayırıcı) veya length indicator (uzunluk bilgisi) ile kayıt sınırı belirlenir. Alan kullanımında esnek ama konumlandırma daha karmaşık.</p></article><article class="item"><h3>Hash fonksiyonu</h3><p>h(k)=k mod M. Örnek: h(27)=27 mod 10=7. Farklı anahtarların aynı adrese düşmesi collision (çarpışma) oluşturur.</p></article><article class="item"><h3>Progressive overflow</h3><p>Home doluysa sonraki konumlar sırayla denenir; tablo sonunda başa dönülebilir. Kümelenme (clustering) artabilir.</p></article><article class="item"><h3>LISCH / EISCH / LICH</h3><p>LISCH: yeni çarpışan kayıt zincirin sonuna eklenir. EISCH: zincirin başına yakın eklenir. LICH: taşma (cellar) alanından yararlanan late-insertion yöntemidir.</p></article><article class="item"><h3>Brent</h3><p>Çarpışma sırasında mevcut kayıtların taşınması da değerlendirilerek arama/probe maliyeti iyileştirilmeye çalışılır.</p></article><article class="item"><h3>Binary Tree hashing</h3><p>Çarpışmalar hash konumları üzerinde ağaç bağlantılarıyla yönetilir; sıradan binary search tree ile karıştırılmamalıdır. Ders örneğindeki continue/move adımları ve genişlik öncelikli inceleme önemlidir.</p></article></section><section class="section searchable" id="w05"><span class="pill">HAFTA 5</span><h2>Dosya sistemleri: inode, FAT, bağlantılar</h2><label class="check"><input type="checkbox" class="done" data-id="w05"> Bu bölümü çalıştım</label><article class="item"><h3>Dosya sistemi bileşenleri</h3><p>Superblock genel dosya sistemi bilgilerini, bitmap boş/dolu alanları, inode meta veriyi, veri blokları içeriği tutar.</p></article><article class="item"><h3>inode</h3><p>Dosya türü, boyutu, izinler, sahip, zamanlar, link count ve blok adresleri. Dosya adı genellikle inode’da değil, dizin girdisinde tutulur.</p></article><article class="item"><h3>Direct / indirect</h3><p>Direct pointer doğrudan veri bloğunu gösterir. Single indirect bir adres bloğunu, double indirect iki düzeyli, triple indirect üç düzeyli adresleme yapısını kullanır.</p></article><article class="item"><h3>Dolaylı adresleme hesabı</h3><p>4096 bayt blok / 4 bayt adres = 1024 adres. Tek indirect: 1024 veri bloğu; double: 1024²; triple: 1024³ (bu varsayımlarla).</p></article><article class="item"><h3>FAT</h3><p>File Allocation Table, dosya bloklarının bağlantılarını merkezî tabloda tutar. Örnek: 4 → 9 → 12 → EOF. Ortadaki bloğa erişim zinciri izlemeyi gerektirebilir.</p></article><article class="item"><h3>Hard link</h3><p>Aynı inode’a başka bir dizin girdisi/ad. Hedef dosyanın adı silinse bile diğer hard link çalışır. Yeni hard link link count değerini 1 artırır.</p></article><article class="item"><h3>Symbolic link</h3><p>Hedefin yolunu saklayan ayrı inode’lu özel dosya. Hedef yol kaybolursa dangling symlink olur; hedefin link count değerini artırmaz.</p></article><article class="item"><h3>Dosya silme</h3><p>Son hard link silinse de dosyayı açık tutan bir süreç varsa bloklar hemen serbest bırakılmayabilir.</p></article></section><section class="section searchable" id="w06"><span class="pill">HAFTA 6</span><h2>Sıkıştırma: bit, RLE, Huffman, LZ78</h2><label class="check"><input type="checkbox" class="done" data-id="w06"> Bu bölümü çalıştım</label><article class="item"><h3>Kayıpsız / kayıplı</h3><p>Lossless sıkıştırmada veri birebir geri elde edilir. Lossy sıkıştırmada bilgi kaybı kabul edilir.</p></article><article class="item"><h3>Compact notation</h3><p>N farklı değer için minimum sabit kod uzunluğu ⌈log₂N⌉ bit. Örnek: 12 değer → 4 bit. Gün 5 + ay 4 + yıl 8 = 17 bit.</p></article><article class="item"><h3>RLE</h3><p>Ardışık tekrarlar değer ve sayıyla gösterilir: AAAAABBB → (A,5)(B,3). Uzun tekrarlar için iyi; dağınık veride büyütebilir.</p></article><article class="item"><h3>Escape byte RLE</h3><p>Kaçış baytı FF ve üçlü FF 24 07 ise 24 baytı 7 defa tekrar edilir: 24 24 24 24 24 24 24.</p></article><article class="item"><h3>Huffman</h3><p>En düşük frekanslı iki düğümü birleştirerek ağaç oluştur; dallara 0/1 ata. Sık semboller kısa kod alır. Prefix-free: hiçbir kod başka kodun öneki değildir. Ortalama uzunluk L=Σ pᵢlᵢ.</p></article><article class="item"><h3>LZ78</h3><p>Tekrarlanan karakter dizilerini sözlükte tutar; tipik çıktı (önceki sözlük indeksi, yeni karakter) çiftleridir.</p></article><article class="item"><h3>Sıkıştırma ve erişim</h3><p>Değişken uzunluklu sıkıştırılmış kayıtlar doğrudan RRN×B adreslemesini zorlaştırabilir.</p></article></section><section class="section searchable" id="w07"><span class="pill">HAFTA 7</span><h2>Computed ve Multiple Chaining</h2><label class="check"><input type="checkbox" class="done" data-id="w07"> Bu bölümü çalıştım</label><article class="item"><h3>Computed Chaining</h3><p>Zincirdeki sonraki kayda erişmek için doğrudan tam adres yerine pseudo-link ve hesaplama kuralı kullanılır. Bu yöntem ilgili ders notunda hash çarpışmalarını yönetmek için ele alınır.</p></article><article class="item"><h3>Multiple Chaining</h3><p>Ek hash/gruplama mantığıyla kayıtların birden fazla zincir grubunda düzenlenmesi hedeflenir. Yöntemin tablo yerleştirme adımlarını slayttaki örnek üzerinden çalışmak gerekir.</p></article></section><section class="section searchable" id="codes"><span class="pill">EN SON</span><h2>08 · C++ kodları ve sınavda boşluk doldurma</h2><p>Önce kısa ve açıklamalı örnekler; ardından yüklediğin 39 sayfalık <strong>Kod Örnekleri.pdf</strong> dosyasının sayfa sayfa metin dökümü var. PDF’den çıkarılan kodlarda satır bölünmeleri veya sayfa düzeni nedeniyle biçim sorunları olabilir; derleme için slayttaki aslına bak.</p><label class="check"><input type="checkbox" class="done" data-id="codes"> Kod bölümünü çalıştım</label><article class="item"><h3>Dosyaya ikili kayıt yazma</h3><p>ofstream dosyaya yazma içindir; ios::binary ikili kipi seçer. write ham baytları yazar.</p><div class="codehead"><span class="muted">Örnek 1</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">#include &lt;fstream&gt;
+using namespace std;
+struct Kayit { int no; double puan; };
+int main() {
+    Kayit k{101, 84.5};
+    ofstream dosya(&quot;kayit.dat&quot;, ios::binary);
+    dosya.write(reinterpret_cast&lt;const char*&gt;(&amp;k), sizeof(Kayit));
+}</pre></article><article class="item"><h3>Üçüncü kaydı okuma ve güncelleme</h3><p>Kayıt numaraları sıfırdan başlıyorsa üçüncü kayıt ofseti 2×B olur. seekg okuma, seekp yazma konumunu ayarlar.</p><div class="codehead"><span class="muted">Örnek 2</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">fstream d(&quot;kayit.dat&quot;, ios::in | ios::out | ios::binary);
+Kayit k{};
+const auto B = sizeof(Kayit);
+d.seekg(2 * B);                    // 3. kayda git
+ d.read(reinterpret_cast&lt;char*&gt;(&amp;k), B);
+k.puan = 95.0;
+d.seekp(2 * B);                    // yazma konumunu ayarla
+d.write(reinterpret_cast&lt;const char*&gt;(&amp;k), B);</pre></article><article class="item"><h3>Sıralı arama</h3><p>Her eleman sırayla kontrol edilir; en kötü durum O(n).</p><div class="codehead"><span class="muted">Örnek 3</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">int sequentialSearch(const int a[], int n, int key) {
+    for (int i = 0; i &lt; n; ++i)
+        if (a[i] == key) return i;
+    return -1;
+}</pre></article><article class="item"><h3>İkili arama</h3><p>Dizi sıralı olmalıdır. Her turda arama aralığı yarıya iner.</p><div class="codehead"><span class="muted">Örnek 4</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">int binarySearch(const int a[], int n, int key) {
+    int low = 0, high = n - 1;
+    while (low &lt;= high) {
+        int mid = low + (high - low) / 2;
+        if (a[mid] == key) return mid;
+        if (a[mid] &lt; key) low = mid + 1;
+        else high = mid - 1;
+    }
+    return -1;
+}</pre></article><article class="item"><h3>Progressive overflow (öğretici örnek)</h3><p>Home doluysa sonraki hücreler denenir. Bu kod kavramsal bir örnektir; slayttaki tam algoritmanın yerine geçmez.</p><div class="codehead"><span class="muted">Örnek 5</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">int hashIndex(int key, int M) { return key % M; }
+int insert(int table[], int M, int key, int EMPTY = -1) {
+    int pos = hashIndex(key, M);
+    for (int probe = 0; probe &lt; M; ++probe) {
+        int i = (pos + probe) % M;
+        if (table[i] == EMPTY) { table[i] = key; return i; }
+    }
+    return -1; // tablo dolu
+}</pre></article><article class="item"><h3>Hard link / symbolic link komutları</h3><p>Bu bölüm C++ değil, Linux kabuk komutlarıdır.</p><div class="codehead"><span class="muted">Örnek 6</span><button onclick="copyCode(this)">Kopyala</button></div><pre class="code">ln notlar.txt yedek.txt      # hard link
+ln -s notlar.txt kisayol.txt # symbolic link
+ls -li                       # inode numarası ve link count
+rm yedek.txt                 # hard link adını sil</pre></article><h3 style="margin-top:30px">Ders PDF’sindeki kodlar — sayfa sayfa</h3><p class="muted">Aşağıdaki metin doğrudan PDF metin çıkarımından gelir. Bu bölüm kodları tam kaynakla karşılaştırabilmen için eklenmiştir.</p><details><summary>PDF sayfa 1 — kaynak metin</summary><pre class="code">TRAKYA ÜNIVERSITESI · BILGISAYAR MÜHENDISLIĞI
+
+
+
+
+Dosya Organizasyonu
+Hafta 1–7 · Kodlar
+
+
+Doç. Dr. Emir Öztürk
+2025/2026 Güz Yarıyılı</pre></details><details><summary>PDF sayfa 2 — kaynak metin</summary><pre class="code">1
+Tam kodlar
+Kopyala, derle, çalıştır</pre></details><details><summary>PDF sayfa 3 — kaynak metin</summary><pre class="code">                                    #include &lt;array&gt;
+                                    #include &lt;cstring&gt;
+                                    #include &lt;fstream&gt;
+                                    #include &lt;iostream&gt;
+        P 01 · HA F T A 3 · 1 / 3   #include &lt;vector&gt;
+                                    using namespace std;
+
+Binary file (ikili                  struct Kayit {
+                                        array&lt;char, 21&gt; ad;
+
+dosyaya) yazma,                         int no;
+                                        double puan;
+
+  güncelleme ve
+                                    };
+
+                                    Kayit yap(const char* ad, int no, double puan) {
+          okuma                         Kayit k{};
+                                        strncpy(k.ad.data(), ad, k.ad.size() - 1);
+                                        k.no = no;
+                                        k.puan = puan;
+                                        return k;
+                                    }
+
+
+
+
+                                                                                       4</pre></details><details><summary>PDF sayfa 4 — kaynak metin</summary><pre class="code">                                    int main() {
+                                        vector&lt;Kayit&gt; v = {yap(&quot;Ayse&quot;, 101, 84.5), yap(&quot;Mehmet&quot;, 102, 71),
+                                                           yap(&quot;Zeynep&quot;, 103, 90), yap(&quot;Ali&quot;, 104, 65.5),
+                                                           yap(&quot;Deniz&quot;, 105, 78)};
+        P 01 · HA F T A 3 · 2 / 3       const auto B = sizeof(Kayit);
+                                        {
+
+Binary file (ikili
+                                            ofstream y(&quot;kayit.dat&quot;, ios::binary);
+                                            for (const auto&amp; k : v)
+                                                y.write(reinterpret_cast&lt;const char*&gt;(&amp;k), B);
+
+dosyaya) yazma,                         }
+
+
+  güncelleme ve
+          okuma
+
+
+
+
+                                                                                                             5</pre></details><details><summary>PDF sayfa 5 — kaynak metin</summary><pre class="code">                                           fstream d(&quot;kayit.dat&quot;, ios::in | ios::out | ios::binary);
+                                           Kayit k{};
+                                           d.seekg(2 * B);
+                                           d.read(reinterpret_cast&lt;char*&gt;(&amp;k), B);
+        P 01 · HA F T A 3 · 3 / 3          cout &lt;&lt; &quot;3. kayit: &quot; &lt;&lt; k.ad.data() &lt;&lt; &#x27; &#x27; &lt;&lt; k.puan &lt;&lt; &#x27;\n&#x27;;
+                                           k.puan = 95.0;
+
+Binary file (ikili
+                                           d.seekp(2 * B);
+                                           d.write(reinterpret_cast&lt;const char*&gt;(&amp;k), B);
+                                           d.seekg(0, ios::end);
+
+dosyaya) yazma,                            cout &lt;&lt; &quot;boyut: &quot; &lt;&lt; d.tellg() &lt;&lt; &quot; bayt, &quot; &lt;&lt; d.tellg() / B &lt;&lt; &quot; kayit\n&quot;;
+                                           d.clear();
+
+  güncelleme ve
+                                           d.seekg(0);
+                                           while (d.read(reinterpret_cast&lt;char*&gt;(&amp;k), B))
+                                               cout &lt;&lt; k.no &lt;&lt; &#x27; &#x27; &lt;&lt; k.ad.data() &lt;&lt; &#x27; &#x27; &lt;&lt; k.puan &lt;&lt; &#x27;\n&#x27;;
+          okuma                     }
+
+
+
+
+                                    Ç I KT I
+
+                                    3. kayit: Zeynep 90
+                                    boyut: 200 bayt, 5 kayit
+                                    101 Ayse 84.5
+                                    102 Mehmet 71
+                                    103 Zeynep 95
+                                    104 Ali 65.5
+                                    105 Deniz 78
+
+
+
+                                                                                                                         6</pre></details><details><summary>PDF sayfa 6 — kaynak metin</summary><pre class="code">                                   #include &lt;fstream&gt;
+                                   #include &lt;iostream&gt;
+                                   using namespace std;
+
+       P 02 · HA F T A 3 · 1 / 3   struct Kayit {
+                                       int no;
+
+Dosya üzerinde
+                                       double puan;
+                                   };
+
+
+  sıralı ve ikili                  bool sirali_ara(fstream&amp; d, int anahtar, Kayit&amp; k, int&amp; adim) {
+                                       d.clear();
+
+         arama
+                                       d.seekg(0);
+                                       adim = 0;
+                                       while (d.read(reinterpret_cast&lt;char*&gt;(&amp;k), sizeof k)) {
+                                           ++adim;
+                                           if (k.no == anahtar) return true;
+                                       }
+                                       return false;
+                                   }
+
+
+
+
+                                                                                                     7</pre></details><details><summary>PDF sayfa 7 — kaynak metin</summary><pre class="code">                                   bool ikili_ara(fstream&amp; d, int anahtar, long n, Kayit&amp; k, int&amp; adim) {
+                                       d.clear();
+                                       long alt = 0, ust = n - 1;
+                                       adim = 0;
+       P 02 · HA F T A 3 · 2 / 3       while (alt &lt;= ust) {
+                                           long orta = alt + (ust - alt) / 2;
+
+Dosya üzerinde
+                                           d.seekg(orta * sizeof(Kayit));
+                                           d.read(reinterpret_cast&lt;char*&gt;(&amp;k), sizeof k);
+                                           ++adim;
+
+  sıralı ve ikili                          if (k.no == anahtar) return true;
+                                           if (k.no &lt; anahtar) alt = orta + 1;
+
+         arama
+                                           else ust = orta - 1;
+                                       }
+                                       return false;
+                                   }
+
+                                   int main() {
+                                       {
+                                           ofstream y(&quot;sirali.dat&quot;, ios::binary);
+                                           for (int i = 1; i &lt;= 15; ++i) {
+                                               Kayit k{i * 10, 50.0 + i};
+                                               y.write(reinterpret_cast&lt;const char*&gt;(&amp;k), sizeof k);
+                                           }
+                                       }
+                                       fstream d(&quot;sirali.dat&quot;, ios::in | ios::binary);
+                                       Kayit k{};
+                                       int adim;
+
+
+                                                                                                            8</pre></details><details><summary>PDF sayfa 8 — kaynak metin</summary><pre class="code">                                          for (int anahtar : {130, 75}) {
+                                              bool s = sirali_ara(d, anahtar, k, adim);
+                                              cout &lt;&lt; anahtar &lt;&lt; &quot; sirali: &quot; &lt;&lt; (s ? &quot;var&quot; : &quot;yok&quot;) &lt;&lt; &quot;, &quot; &lt;&lt; adim &lt;&lt; &quot; okuma\n&quot;;
+                                              bool b = ikili_ara(d, anahtar, 15, k, adim);
+       P 02 · HA F T A 3 · 3 / 3              cout &lt;&lt; anahtar &lt;&lt; &quot; ikili : &quot; &lt;&lt; (b ? &quot;var&quot; : &quot;yok&quot;) &lt;&lt; &quot;, &quot; &lt;&lt; adim &lt;&lt; &quot; okuma\n&quot;;
+                                          }
+
+Dosya üzerinde
+                                   }
+
+
+
+  sıralı ve ikili                  Ç I KT I
+
+         arama                     130 sirali: var, 13 okuma
+                                   130 ikili : var, 4 okuma
+                                   75 sirali: yok, 15 okuma
+                                   75 ikili : yok, 4 okuma
+
+
+
+
+                                                                                                                                     9</pre></details><details><summary>PDF sayfa 9 — kaynak metin</summary><pre class="code">                                #include &lt;iostream&gt;
+                                #include &lt;utility&gt;
+                                #include &lt;vector&gt;
+                                using namespace std;
+    P 04 · HA F T A 3 · 1 / 3
+                                int one_tasi(vector&lt;int&gt;&amp; v, int anahtar) {
+
+ Öne taşıma,
+                                    for (size_t i = 0; i &lt; v.size(); ++i) {
+                                        if (v[i] != anahtar) continue;
+                                        for (size_t j = i; j &gt; 0; --j) v[j] = v[j - 1];
+
+       konum                            v[0] = anahtar;
+                                        return static_cast&lt;int&gt;(i) + 1;
+
+değiştirme ve
+                                    }
+                                    return -1;
+                                }
+        sayaç                   int konum_degistir(vector&lt;int&gt;&amp; v, int anahtar) {
+                                    for (size_t i = 0; i &lt; v.size(); ++i) {
+                                        if (v[i] != anahtar) continue;
+                                        if (i &gt; 0) swap(v[i - 1], v[i]);
+                                        return static_cast&lt;int&gt;(i) + 1;
+                                    }
+                                    return -1;
+                                }
+
+
+
+
+                                                                                          12</pre></details><details><summary>PDF sayfa 10 — kaynak metin</summary><pre class="code">                                int sayac_ara(vector&lt;pair&lt;int, int&gt;&gt;&amp; v, int anahtar) {
+                                    for (size_t i = 0; i &lt; v.size(); ++i) {
+                                        if (v[i].first != anahtar) continue;
+                                        ++v[i].second;
+    P 04 · HA F T A 3 · 2 / 3           for (size_t j = i; j &gt; 0 &amp;&amp; v[j - 1].second &lt; v[j].second; --j)
+                                            swap(v[j - 1], v[j]);
+
+ Öne taşıma,
+                                        return static_cast&lt;int&gt;(i) + 1;
+                                    }
+                                    return -1;
+
+       konum                    }
+
+
+değiştirme ve
+                                int main() {
+                                    vector&lt;int&gt; a = {34, 21, 89, 45, 12, 90, 76, 62}, b = a;
+                                    vector&lt;pair&lt;int, int&gt;&gt; c;
+        sayaç                       for (int x : a) c.push_back({x, 0});
+                                    int ta = 0, tb = 0, tc = 0;
+                                    for (int x : {90, 89, 90, 21, 90, 90}) {
+                                        ta += one_tasi(a, x);
+                                        tb += konum_degistir(b, x);
+                                        tc += sayac_ara(c, x);
+                                    }
+                                    cout &lt;&lt; &quot;one tasima : &quot;;
+                                    for (int x : a) cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;
+                                    cout &lt;&lt; &quot;| &quot; &lt;&lt; ta &lt;&lt; &quot; adim\n&quot;;
+                                    cout &lt;&lt; &quot;konum degis: &quot;;
+                                    for (int x : b) cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;
+                                    cout &lt;&lt; &quot;| &quot; &lt;&lt; tb &lt;&lt; &quot; adim\n&quot;;
+
+
+                                                                                                          13</pre></details><details><summary>PDF sayfa 11 — kaynak metin</summary><pre class="code">                                       cout &lt;&lt; &quot;sayac      : &quot;;
+                                       for (auto&amp; [x, s] : c) cout &lt;&lt; x &lt;&lt; &#x27; &#x27;;
+                                       cout &lt;&lt; &quot;| &quot; &lt;&lt; tc &lt;&lt; &quot; adim\n&quot;;
+                                }
+    P 04 · HA F T A 3 · 3 / 3
+
+
+
+ Öne taşıma,                    Ç I KT I
+
+
+       konum
+                                one tasima : 90 21 89 34 45 12 76 62 | 19 adim
+                                konum degis: 34 90 21 89 45 12 76 62 | 24 adim
+                                sayac      : 90 89 21 34 45 12 76 62 | 17 adim
+değiştirme ve
+        sayaç
+
+
+
+
+                                                                                  14</pre></details><details><summary>PDF sayfa 12 — kaynak metin</summary><pre class="code">                                   #include &lt;iostream&gt;
+                                   #include &lt;vector&gt;
+                                   using namespace std;
+
+       P 05 · HA F T A 4 · 1 / 2   constexpr int BOS = -1;
+
+
+
+Division method
+                                   int carpisma_say(const vector&lt;int&gt;&amp; anahtarlar, int n) {
+                                       vector&lt;int&gt; sayac(n, 0);
+                                       int carpisma = 0;
+
+(bölme yöntemi)                        for (int k : anahtarlar)
+                                           if (sayac[k % n]++ &gt; 0) ++carpisma;
+
+  ve progressive
+                                       return carpisma;
+                                   }
+
+
+        overflow                   int ekle(vector&lt;int&gt;&amp; tablo, int anahtar, int&amp; probe) {
+                                       const int n = static_cast&lt;int&gt;(tablo.size());
+                                       const int ev = anahtar % n;
+                                       int adres = ev;
+                                       probe = 1;
+                                       while (tablo[adres] != BOS) {
+                                           adres = (adres + 1) % n;
+                                           ++probe;
+                                           if (adres == ev) return -1;
+                                       }
+                                       tablo[adres] = anahtar;
+                                       return adres;
+                                   }
+
+
+                                                                                              15</pre></details><details><summary>PDF sayfa 13 — kaynak metin</summary><pre class="code">                                   int main() {
+                                       vector&lt;int&gt; h = {71, 23, 73, 99, 44, 49, 60, 20, 33};
+                                       for (int n : {11, 13, 17, 23})
+                                           cout &lt;&lt; &quot;mod &quot; &lt;&lt; n &lt;&lt; &quot;: &quot; &lt;&lt; carpisma_say(h, n) &lt;&lt; &quot; carpisma\n&quot;;
+       P 05 · HA F T A 4 · 2 / 2       vector&lt;int&gt; tablo(10, BOS);
+                                       int toplam = 0, probe;
+
+Division method
+                                       for (int k : {35, 43, 70, 63, 30, 14, 23, 24, 34}) {
+                                           int a = ekle(tablo, k, probe);
+                                           toplam += probe;
+
+(bölme yöntemi)                        }
+                                           cout &lt;&lt; k &lt;&lt; &quot;-&gt;&quot; &lt;&lt; a &lt;&lt; &quot; (&quot; &lt;&lt; probe &lt;&lt; &quot;) &quot;;
+
+
+  ve progressive
+                                       cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 9.0 &lt;&lt; &#x27;\n&#x27;;
+                                   }
+
+
+        overflow
+                                   Ç I KT I
+
+                                   mod 11: 4 carpisma
+                                   mod 13: 4 carpisma
+                                   mod 17: 1 carpisma
+                                   mod 23: 0 carpisma
+                                   35-&gt;5 (1) 43-&gt;3 (1) 70-&gt;0 (1)   63-&gt;4 (2)   30-&gt;1 (2)   14-&gt;6 (3)   23-&gt;7 (5)   24-&gt;8 (5)
+                                   34-&gt;9 (6)
+                                   toplam 26, ortalama 2.88889
+
+
+
+
+                                                                                                                               16</pre></details><details><summary>PDF sayfa 14 — kaynak metin</summary><pre class="code">                                   #include &lt;iostream&gt;
+                                   #include &lt;vector&gt;
+                                   using namespace std;
+
+       P 07 · HA F T A 7 · 1 / 3   constexpr int BOS = -1, SILINDI = -2;
+
+
+
+Logical deletion
+                                   int ekle(vector&lt;int&gt;&amp; t, int k) {
+                                       const int m = t.size();
+                                       for (int i = 0; i &lt; m; ++i) {
+
+     (mantıksal                            int a = (k % m + i) % m;
+                                           if (t[a] == BOS || t[a] == SILINDI) { t[a] = k; return a; }
+
+          silme)
+                                       }
+                                       return -1;
+                                   }
+
+                                   int ara(const vector&lt;int&gt;&amp; t, int k, int&amp; probe) {
+                                       const int m = t.size();
+                                       for (probe = 1; probe &lt;= m; ++probe) {
+                                           int a = (k % m + probe - 1) % m;
+                                           if (t[a] == BOS) return -1;
+                                           if (t[a] == k) return a;
+                                       }
+                                       return -1;
+                                   }
+
+
+
+
+                                                                                                         19</pre></details><details><summary>PDF sayfa 15 — kaynak metin</summary><pre class="code">                                   bool sil(vector&lt;int&gt;&amp; t, int k) {
+                                       int probe, a = ara(t, k, probe);
+                                       if (a &lt; 0) return false;
+                                       t[a] = SILINDI;
+       P 07 · HA F T A 7 · 2 / 3       return true;
+                                   }
+
+Logical deletion
+     (mantıksal
+          silme)
+
+
+
+
+                                                                          20</pre></details><details><summary>PDF sayfa 16 — kaynak metin</summary><pre class="code">                                   int main() {
+                                       vector&lt;int&gt; t(10, BOS);
+                                       for (int k : {35, 43, 70, 63, 30, 14, 23, 24, 34}) ekle(t, k);
+                                       vector&lt;int&gt; yanlis = t;
+       P 07 · HA F T A 7 · 3 / 3       int p, a = ara(yanlis, 14, p);
+                                       yanlis[a] = BOS;
+
+Logical deletion
+                                       sil(t, 14);
+                                       for (int k : {23, 24, 34}) {
+                                           int p1, p2;
+
+     (mantıksal                            int a1 = ara(yanlis, k, p1), a2 = ara(t, k, p2);
+                                           cout &lt;&lt; k &lt;&lt; &quot; BOS ile: &quot; &lt;&lt; a1 &lt;&lt; &quot; (&quot; &lt;&lt; p1 &lt;&lt; &quot;)&quot;
+
+          silme)
+                                                &lt;&lt; &quot;   SILINDI ile: &quot; &lt;&lt; a2 &lt;&lt; &quot; (&quot; &lt;&lt; p2 &lt;&lt; &quot;)\n&quot;;
+                                       }
+                                       cout &lt;&lt; &quot;56 eklendi: &quot; &lt;&lt; ekle(t, 56) &lt;&lt; &#x27;\n&#x27;;
+                                   }
+
+
+
+
+                                   Ç I KT I
+
+                                   23 BOS ile: -1 (4)   SILINDI ile: 7 (5)
+                                   24 BOS ile: -1 (3)   SILINDI ile: 8 (5)
+                                   34 BOS ile: -1 (3)   SILINDI ile: 9 (6)
+                                   56 eklendi: 6
+
+
+
+
+                                                                                                        21</pre></details><details><summary>PDF sayfa 17 — kaynak metin</summary><pre class="code">2
+Boşluklu kodlar
+Sınava hazırlık: önce doldur, sonra çözümle karşılaştır</pre></details><details><summary>PDF sayfa 18 — kaynak metin</summary><pre class="code">                               #include &lt;iostream&gt;
+                               #include &lt;vector&gt;
+                               using namespace std;
+
+      P 08 · S O R U · 1 / 3   constexpr int BOS = -1;
+                               struct Goz { int deger = BOS; int baglanti = -1; };
+
+    Coalesced                  int ekle(vector&lt;Goz&gt;&amp; t, int anahtar, bool erken) {
+                                   const int n = static_cast&lt;int&gt;(t.size());
+
+hashing: LISCH                     const [1] ______ ev = anahtar % n;
+                                   if (t[ev].deger == BOS) { t[ev].deger = anahtar; return ev; }
+
+      ve EISCH
+                                   int bos = n - 1;
+                                   while (bos &gt;= 0 &amp;&amp; t[bos].deger != BOS) --bos;
+                                   if (bos &lt; 0) return -1;
+                                   t[bos].deger = anahtar;
+                                   [2] ______ (erken) {
+                                       t[bos].baglanti = t[ev].baglanti;
+                                       t[ev].baglanti = bos;
+                                   } else {
+                                       int son = ev;
+                                       while (t[son].baglanti != -1) son = t[son].baglanti;
+                                       t[son].baglanti = bos;
+                                   }
+                                   return bos;
+                               }
+
+
+
+
+                                                                                                   23</pre></details><details><summary>PDF sayfa 19 — kaynak metin</summary><pre class="code">                               [3] ______ probe(const vector&lt;Goz&gt;&amp; t, int k) {
+                                   int a = k % int(t.size()), p = 1;
+                                   [4] ______ (t[a].deger != k) { a = t[a].baglanti; ++p; }
+                                   [5] ______ p;
+      P 08 · S O R U · 2 / 3   }
+
+
+
+    Coalesced
+                               int main() {
+                                   const vector&lt;int&gt; anahtarlar = {27, 18, 29, 28, 39, 13, 16, 42, 17};
+
+
+hashing: LISCH
+      ve EISCH
+
+
+
+
+                                                                                                          24</pre></details><details><summary>PDF sayfa 20 — kaynak metin</summary><pre class="code">                                      [6] ______ ([7] ______ erken : {false, true}) {
+                                          vector&lt;Goz&gt; t(11);
+                                          for (int k : anahtarlar) ekle(t, k, erken);
+                                          int toplam = 0;
+      P 08 · S O R U · 3 / 3              for (int k : anahtarlar) toplam += probe(t, k);
+                                          [8] ______ &lt;&lt; (erken ? &quot;EISCH&quot; : &quot;LISCH&quot;) &lt;&lt; &quot;: toplam &quot; &lt;&lt; toplam
+
+    Coalesced
+                                               &lt;&lt; &quot;, 17 icin &quot; &lt;&lt; probe(t, 17) &lt;&lt; &#x27;\n&#x27;;
+                                          for (int ev : {5, 6, 7}) {
+                                              cout &lt;&lt; &quot; &quot; &lt;&lt; ev &lt;&lt; &quot;:&quot;;
+
+hashing: LISCH                                for (int a = ev; a != -1; a = t[a].baglanti) cout &lt;&lt; &#x27; &#x27; &lt;&lt; t[a].deger;
+                                              cout &lt;&lt; &#x27;\n&#x27;;
+
+      ve EISCH
+                                          }
+                                      }
+                               }
+
+
+
+
+                               Ç I KT I
+
+                               LISCH: toplam 16, 17 icin 4
+                                 5: 27 16
+                                 6: 28 39 42 17
+                                 7: 18 29
+                               EISCH: toplam 15, 17 icin 2
+                                 5: 27 16
+                                 6: 28 17 39 42
+                                 7: 18 29
+
+
+
+                                                                                                                        25</pre></details><details><summary>PDF sayfa 21 — kaynak metin</summary><pre class="code">                                 #include &lt;iostream&gt;
+                                 #include &lt;vector&gt;
+                                 using namespace std;
+
+      P 08 · Ç Ö Z Ü M · 1 / 3   constexpr int BOS = -1;
+                                 struct Goz { int deger = BOS; int baglanti = -1; };
+
+    Coalesced                    int ekle(vector&lt;Goz&gt;&amp; t, int anahtar, bool erken) {
+                                     const int n = static_cast&lt;int&gt;(t.size());
+
+hashing: LISCH                       const int ev = anahtar % n;
+                                     if (t[ev].deger == BOS) { t[ev].deger = anahtar; return ev; }
+
+      ve EISCH
+                                     int bos = n - 1;
+                                     while (bos &gt;= 0 &amp;&amp; t[bos].deger != BOS) --bos;
+                                     if (bos &lt; 0) return -1;
+                                     t[bos].deger = anahtar;
+                                     if (erken) {
+                                         t[bos].baglanti = t[ev].baglanti;
+                                         t[ev].baglanti = bos;
+                                     } else {
+                                         int son = ev;
+                                         while (t[son].baglanti != -1) son = t[son].baglanti;
+                                         t[son].baglanti = bos;
+                                     }
+                                     return bos;
+                                 }
+
+
+
+
+                                                                                                     26</pre></details><details><summary>PDF sayfa 22 — kaynak metin</summary><pre class="code">                                 int probe(const vector&lt;Goz&gt;&amp; t, int k) {
+                                     int a = k % int(t.size()), p = 1;
+                                     while (t[a].deger != k) { a = t[a].baglanti; ++p; }
+                                     return p;
+      P 08 · Ç Ö Z Ü M · 2 / 3   }
+
+
+
+    Coalesced
+                                 int main() {
+                                     const vector&lt;int&gt; anahtarlar = {27, 18, 29, 28, 39, 13, 16, 42, 17};
+
+
+hashing: LISCH
+      ve EISCH
+
+
+
+
+                                                                                                            27</pre></details><details><summary>PDF sayfa 23 — kaynak metin</summary><pre class="code">                                        for (bool erken : {false, true}) {
+                                            vector&lt;Goz&gt; t(11);
+                                            for (int k : anahtarlar) ekle(t, k, erken);
+                                            int toplam = 0;
+      P 08 · Ç Ö Z Ü M · 3 / 3              for (int k : anahtarlar) toplam += probe(t, k);
+                                            cout &lt;&lt; (erken ? &quot;EISCH&quot; : &quot;LISCH&quot;) &lt;&lt; &quot;: toplam &quot; &lt;&lt; toplam
+
+    Coalesced
+                                                 &lt;&lt; &quot;, 17 icin &quot; &lt;&lt; probe(t, 17) &lt;&lt; &#x27;\n&#x27;;
+                                            for (int ev : {5, 6, 7}) {
+                                                cout &lt;&lt; &quot; &quot; &lt;&lt; ev &lt;&lt; &quot;:&quot;;
+
+hashing: LISCH                                  for (int a = ev; a != -1; a = t[a].baglanti) cout &lt;&lt; &#x27; &#x27; &lt;&lt; t[a].deger;
+                                                cout &lt;&lt; &#x27;\n&#x27;;
+
+      ve EISCH
+                                            }
+                                        }
+                                 }
+
+
+
+
+                                 Ç I KT I
+
+                                 LISCH: toplam 16, 17 icin 4
+                                   5: 27 16
+                                   6: 28 39 42 17
+                                   7: 18 29
+                                 EISCH: toplam 15, 17 icin 2
+                                   5: 27 16
+                                   6: 28 17 39 42
+                                   7: 18 29
+
+
+
+                                                                                                                          28</pre></details><details><summary>PDF sayfa 24 — kaynak metin</summary><pre class="code">                                #include &lt;iostream&gt;
+                                #include &lt;vector&gt;
+                                using namespace std;
+
+       P 09 · S O R U · 1 / 2   constexpr int BOS = -1;
+
+
+
+Brent&#x27;s metodu
+                                [1] ______ h2(int k) { [2] ______ k / 11; }
+
+                                [3] ______ brent_ekle(vector&lt;int&gt;&amp; t, int k) {
+                                    const int m = t.size(), ev = k % m, adim = h2(k);
+                                    if (t[ev] == BOS) { t[ev] = k; return; }
+                                    int s = 2, yer = (ev + adim) % m;
+                                    [4] ______ (t[yer] != BOS) { yer = (yer + adim) % m; ++s; }
+                                    [5] ______ (int top = 2; top &lt; s; ++top)
+                                        for (int i = 1; i &lt; top; ++i) {
+                                            int j = top - i;
+                                            int p = (ev + (i - 1) * adim) % m;
+                                            int hedef = (p + j * h2(t[p])) % m;
+                                            [6] ______ (t[hedef] == BOS) {
+                                                t[hedef] = t[p];
+                                                t[p] = k;
+                                                return;
+                                            }
+                                        }
+                                    t[yer] = k;
+                                }
+
+
+
+
+                                                                                                  29</pre></details><details><summary>PDF sayfa 25 — kaynak metin</summary><pre class="code">                                int main() {
+                                    vector&lt;int&gt; t(11, BOS);
+                                    for (int k : {27, 18, 29, 28, 39, 13, 16, 42, 17}) brent_ekle(t, k);
+                                    int toplam = 0;
+       P 09 · S O R U · 2 / 2       for (int a = 0; a &lt; 11; ++a) {
+                                        if (t[a] == BOS) [7] ______;
+
+Brent&#x27;s metodu
+                                        int k = t[a], p = k % 11, n = 1;
+                                        while (p != a) { p = (p + h2(k)) % 11; ++n; }
+                                        toplam += n;
+                                        [8] ______ &lt;&lt; a &lt;&lt; &#x27;:&#x27; &lt;&lt; k &lt;&lt; &#x27;(&#x27; &lt;&lt; n &lt;&lt; &quot;) &quot;;
+                                    }
+                                    cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 9.0 &lt;&lt; &#x27;\n&#x27;;
+                                }
+
+
+
+
+                                Ç I KT I
+
+                                0:27(4) 1:42(2) 2:13(1)   4:39(4)   5:16(1)   6:17(1)   7:18(1)   8:28(2)   9:29(2)
+                                toplam 18, ortalama 2
+
+
+
+
+                                                                                                                      30</pre></details><details><summary>PDF sayfa 26 — kaynak metin</summary><pre class="code">                                 #include &lt;iostream&gt;
+                                 #include &lt;vector&gt;
+                                 using namespace std;
+
+      P 09 · Ç Ö Z Ü M · 1 / 2   constexpr int BOS = -1;
+
+
+
+Brent&#x27;s metodu
+                                 int h2(int k) { return k / 11; }
+
+                                 void brent_ekle(vector&lt;int&gt;&amp; t, int k) {
+                                     const int m = t.size(), ev = k % m, adim = h2(k);
+                                     if (t[ev] == BOS) { t[ev] = k; return; }
+                                     int s = 2, yer = (ev + adim) % m;
+                                     while (t[yer] != BOS) { yer = (yer + adim) % m; ++s; }
+                                     for (int top = 2; top &lt; s; ++top)
+                                         for (int i = 1; i &lt; top; ++i) {
+                                             int j = top - i;
+                                             int p = (ev + (i - 1) * adim) % m;
+                                             int hedef = (p + j * h2(t[p])) % m;
+                                             if (t[hedef] == BOS) {
+                                                 t[hedef] = t[p];
+                                                 t[p] = k;
+                                                 return;
+                                             }
+                                         }
+                                     t[yer] = k;
+                                 }
+
+
+
+
+                                                                                              31</pre></details><details><summary>PDF sayfa 27 — kaynak metin</summary><pre class="code">                                 int main() {
+                                     vector&lt;int&gt; t(11, BOS);
+                                     for (int k : {27, 18, 29, 28, 39, 13, 16, 42, 17}) brent_ekle(t, k);
+                                     int toplam = 0;
+      P 09 · Ç Ö Z Ü M · 2 / 2       for (int a = 0; a &lt; 11; ++a) {
+                                         if (t[a] == BOS) continue;
+
+Brent&#x27;s metodu
+                                         int k = t[a], p = k % 11, n = 1;
+                                         while (p != a) { p = (p + h2(k)) % 11; ++n; }
+                                         toplam += n;
+                                         cout &lt;&lt; a &lt;&lt; &#x27;:&#x27; &lt;&lt; k &lt;&lt; &#x27;(&#x27; &lt;&lt; n &lt;&lt; &quot;) &quot;;
+                                     }
+                                     cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 9.0 &lt;&lt; &#x27;\n&#x27;;
+                                 }
+
+
+
+
+                                 Ç I KT I
+
+                                 0:27(4) 1:42(2) 2:13(1)   4:39(4)   5:16(1)   6:17(1)   7:18(1)   8:28(2)   9:29(2)
+                                 toplam 18, ortalama 2
+
+
+
+
+                                                                                                                       32</pre></details><details><summary>PDF sayfa 28 — kaynak metin</summary><pre class="code">                               #include &lt;iostream&gt;
+                               #include &lt;vector&gt;
+                               using namespace std;
+
+      P 10 · S O R U · 1 / 2   constexpr int BOS = -1;
+                               struct Dugum { int adres, anahtar, ebeveyn; [1] ______ tasima; };
+
+  Binary tree                  int h2(int k) { return k / 11; }
+
+
+ method (ikili                 bool agac_ekle(vector&lt;int&gt;&amp; t, int k) {
+                                   const int m = t.size();
+
+ağaç yöntemi)
+                                   vector&lt;Dugum&gt; d{{k % m, k, -1, false}};
+                                   [2] ______ (size_t i = 0; i &lt; d.size() &amp;&amp; d.size() &lt; 4u * m; ++i) {
+                                       Dugum x = d[i];
+                                       [3] ______ (t[x.adres] == BOS) {
+                                           t[x.adres] = x.anahtar;
+                                           for (int j = i; d[j].ebeveyn != -1; j = d[j].ebeveyn)
+                                               if (d[j].tasima) {
+                                                   const Dugum&amp; e = d[d[j].ebeveyn];
+                                                   t[e.adres] = e.anahtar;
+                                               }
+                                           [4] ______ true;
+                                       }
+                                       d.push_back({(x.adres + h2(x.anahtar)) % m, x.anahtar, int(i), false});
+                                       d.push_back({(x.adres + h2(t[x.adres])) % m, t[x.adres], int(i), true});
+                                   }
+                                   return false;
+
+
+                                                                                                                  33</pre></details><details><summary>PDF sayfa 29 — kaynak metin</summary><pre class="code">                               }
+
+                               int main() {
+                                   vector&lt;int&gt; t(11, BOS);
+      P 10 · S O R U · 2 / 2       for (int k : {27, 18, 29, 28, 39, 13, 16, 41, 17, 19}) agac_ekle(t, k);
+                                   [5] ______ toplam = 0;
+
+  Binary tree
+                                   for (int a = 0; a &lt; 11; ++a) {
+                                       if (t[a] == BOS) continue;
+                                       int k = t[a], p = k % 11, n = 1;
+
+ method (ikili                         [6] ______ (p != a) { p = (p + h2(k)) % 11; ++n; }
+                                       toplam += n;
+
+ağaç yöntemi)
+                                       [7] ______ &lt;&lt; a &lt;&lt; &#x27;:&#x27; &lt;&lt; k &lt;&lt; &#x27;(&#x27; &lt;&lt; n &lt;&lt; &quot;) &quot;;
+                                   }
+                                   cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 10.0 &lt;&lt; &#x27;\n&#x27;;
+                               }
+
+
+
+
+                               Ç I KT I
+
+                               0:29(3) 1:39(3) 2:13(1)   3:41(3)   5:27(1)   6:16(2)   7:18(1)   8:17(3)   9:19(2)   10:28(3)
+                               toplam 22, ortalama 2.2
+
+
+
+
+                                                                                                                                34</pre></details><details><summary>PDF sayfa 30 — kaynak metin</summary><pre class="code">                                #include &lt;iostream&gt;
+                                #include &lt;vector&gt;
+                                using namespace std;
+
+     P 10 · Ç Ö Z Ü M · 1 / 2   constexpr int BOS = -1;
+                                struct Dugum { int adres, anahtar, ebeveyn; bool tasima; };
+
+  Binary tree                   int h2(int k) { return k / 11; }
+
+
+ method (ikili                  bool agac_ekle(vector&lt;int&gt;&amp; t, int k) {
+                                    const int m = t.size();
+
+ağaç yöntemi)
+                                    vector&lt;Dugum&gt; d{{k % m, k, -1, false}};
+                                    for (size_t i = 0; i &lt; d.size() &amp;&amp; d.size() &lt; 4u * m; ++i) {
+                                        Dugum x = d[i];
+                                        if (t[x.adres] == BOS) {
+                                            t[x.adres] = x.anahtar;
+                                            for (int j = i; d[j].ebeveyn != -1; j = d[j].ebeveyn)
+                                                if (d[j].tasima) {
+                                                    const Dugum&amp; e = d[d[j].ebeveyn];
+                                                    t[e.adres] = e.anahtar;
+                                                }
+                                            return true;
+                                        }
+                                        d.push_back({(x.adres + h2(x.anahtar)) % m, x.anahtar, int(i), false});
+                                        d.push_back({(x.adres + h2(t[x.adres])) % m, t[x.adres], int(i), true});
+                                    }
+                                    return false;
+
+
+                                                                                                                   35</pre></details><details><summary>PDF sayfa 31 — kaynak metin</summary><pre class="code">                                }
+
+                                int main() {
+                                    vector&lt;int&gt; t(11, BOS);
+     P 10 · Ç Ö Z Ü M · 2 / 2       for (int k : {27, 18, 29, 28, 39, 13, 16, 41, 17, 19}) agac_ekle(t, k);
+                                    int toplam = 0;
+
+  Binary tree
+                                    for (int a = 0; a &lt; 11; ++a) {
+                                        if (t[a] == BOS) continue;
+                                        int k = t[a], p = k % 11, n = 1;
+
+ method (ikili                          while (p != a) { p = (p + h2(k)) % 11; ++n; }
+                                        toplam += n;
+
+ağaç yöntemi)
+                                        cout &lt;&lt; a &lt;&lt; &#x27;:&#x27; &lt;&lt; k &lt;&lt; &#x27;(&#x27; &lt;&lt; n &lt;&lt; &quot;) &quot;;
+                                    }
+                                    cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 10.0 &lt;&lt; &#x27;\n&#x27;;
+                                }
+
+
+
+
+                                Ç I KT I
+
+                                0:29(3) 1:39(3) 2:13(1)   3:41(3)   5:27(1)   6:16(2)   7:18(1)   8:17(3)   9:19(2)   10:28(3)
+                                toplam 22, ortalama 2.2
+
+
+
+
+                                                                                                                                 36</pre></details><details><summary>PDF sayfa 32 — kaynak metin</summary><pre class="code">                           #include &lt;iostream&gt;
+                           #include &lt;vector&gt;
+                           using namespace std;
+
+  P 11 · S O R U · 1 / 4   constexpr int BOS = -1;
+                           struct Goz { [1] ______ anahtar = BOS; int carpan = 0; };
+
+Computed                   int f(int k, int m) { int a = k / m; [2] ______ a == 0 ? 1 : a; }
+
+
+ chaining                  int sonraki(const vector&lt;Goz&gt;&amp; t, int a) {
+                               const int m = t.size();
+                               return (a + t[a].carpan * f(t[a].anahtar, m)) % m;
+                           }
+
+                           [3] ______ sona_ekle(vector&lt;Goz&gt;&amp; t, int k) {
+                               const int m = t.size();
+                               int son = k % m;
+                               [4] ______ (t[son].carpan != 0) son = sonraki(t, son);
+                               [5] ______ (int j = 1; j &lt; m; ++j) {
+                                   int a = (son + j * f(t[son].anahtar, m)) % m;
+                                   if (t[a].anahtar == BOS) {
+                                       t[son].carpan = j;
+                                       t[a] = {k, 0};
+                                       return;
+                                   }
+                               }
+                           }
+
+
+                                                                                               37</pre></details><details><summary>PDF sayfa 33 — kaynak metin</summary><pre class="code">                           void ekle(vector&lt;Goz&gt;&amp; t, int k) {
+                               const int m = t.size();
+                               const int ev = k % m;
+                               if (t[ev].anahtar == BOS) { t[ev] = {k, 0}; return; }
+  P 11 · S O R U · 2 / 4       const int sahip = t[ev].anahtar % m;
+                               if (sahip == ev) { sona_ekle(t, k); return; }
+
+Computed
+                               int once = sahip;
+                               while (sonraki(t, once) != ev) once = sonraki(t, once);
+                               vector&lt;int&gt; tasinan;
+
+ chaining                      for (int a = ev;;) {
+                                   tasinan.push_back(t[a].anahtar);
+                                   int s = t[a].carpan ? sonraki(t, a) : -1;
+                                   t[a] = Goz{};
+                                   if (s &lt; 0) [6] ______;
+                                   a = s;
+                               }
+                               t[once].carpan = 0;
+                               t[ev] = {k, 0};
+                               for (int x : tasinan) sona_ekle(t, x);
+                           }
+
+
+
+
+                                                                                         38</pre></details><details><summary>PDF sayfa 34 — kaynak metin</summary><pre class="code">                           int ara(const vector&lt;Goz&gt;&amp; t, int k) {
+                               const int m = t.size();
+                               int a = k % m, probe = 1;
+                               if (t[a].anahtar == BOS || t[a].anahtar % m != a) return t[a].anahtar == k ? 1 : -1;
+  P 11 · S O R U · 3 / 4       while (t[a].anahtar != k) {
+                                   [7] ______ (t[a].carpan == 0) return -1;
+
+Computed
+                                   a = sonraki(t, a);
+                                   ++probe;
+                               }
+
+ chaining                  }
+                               return probe;
+
+
+
+
+                                                                                                                      39</pre></details><details><summary>PDF sayfa 35 — kaynak metin</summary><pre class="code">                           int main() {
+                               vector&lt;Goz&gt; t(11);
+                               const vector&lt;int&gt; anahtarlar = {27, 18, 29, 28, 39, 13, 16, 38, 53};
+                               for (int k : anahtarlar) ekle(t, k);
+  P 11 · S O R U · 4 / 4       for (int a = 0; a &lt; 11; ++a)
+                                   cout &lt;&lt; a &lt;&lt; &quot;:&quot; &lt;&lt; t[a].anahtar &lt;&lt; &quot;/&quot; &lt;&lt; t[a].carpan &lt;&lt; (a % 4 == 3 ? &quot;\n&quot; : &quot;   &quot;);
+
+Computed
+                               int toplam = 0;
+                               for (int k : anahtarlar) toplam += ara(t, k);
+                               [8] ______ &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 9.0 &lt;&lt; &#x27;\n&#x27;;
+
+ chaining                  }
+
+
+
+
+                           Ç I KT I
+
+                           0:16/1   1:38/0   2:13/0   3:-1/0
+                           4:-1/0   5:27/3   6:28/2   7:18/1
+                           8:29/0   9:53/0   10:39/0
+                           toplam 14, ortalama 1.55556
+
+
+
+
+                                                                                                                            40</pre></details><details><summary>PDF sayfa 36 — kaynak metin</summary><pre class="code">                            #include &lt;iostream&gt;
+                            #include &lt;vector&gt;
+                            using namespace std;
+
+ P 11 · Ç Ö Z Ü M · 1 / 4   constexpr int BOS = -1;
+                            struct Goz { int anahtar = BOS; int carpan = 0; };
+
+Computed                    int f(int k, int m) { int a = k / m; return a == 0 ? 1 : a; }
+
+
+ chaining                   int sonraki(const vector&lt;Goz&gt;&amp; t, int a) {
+                                const int m = t.size();
+                                return (a + t[a].carpan * f(t[a].anahtar, m)) % m;
+                            }
+
+                            void sona_ekle(vector&lt;Goz&gt;&amp; t, int k) {
+                                const int m = t.size();
+                                int son = k % m;
+                                while (t[son].carpan != 0) son = sonraki(t, son);
+                                for (int j = 1; j &lt; m; ++j) {
+                                    int a = (son + j * f(t[son].anahtar, m)) % m;
+                                    if (t[a].anahtar == BOS) {
+                                        t[son].carpan = j;
+                                        t[a] = {k, 0};
+                                        return;
+                                    }
+                                }
+                            }
+
+
+                                                                                            41</pre></details><details><summary>PDF sayfa 37 — kaynak metin</summary><pre class="code">                            void ekle(vector&lt;Goz&gt;&amp; t, int k) {
+                                const int m = t.size();
+                                const int ev = k % m;
+                                if (t[ev].anahtar == BOS) { t[ev] = {k, 0}; return; }
+ P 11 · Ç Ö Z Ü M · 2 / 4       const int sahip = t[ev].anahtar % m;
+                                if (sahip == ev) { sona_ekle(t, k); return; }
+
+Computed
+                                int once = sahip;
+                                while (sonraki(t, once) != ev) once = sonraki(t, once);
+                                vector&lt;int&gt; tasinan;
+
+ chaining                       for (int a = ev;;) {
+                                    tasinan.push_back(t[a].anahtar);
+                                    int s = t[a].carpan ? sonraki(t, a) : -1;
+                                    t[a] = Goz{};
+                                    if (s &lt; 0) break;
+                                    a = s;
+                                }
+                                t[once].carpan = 0;
+                                t[ev] = {k, 0};
+                                for (int x : tasinan) sona_ekle(t, x);
+                            }
+
+
+
+
+                                                                                          42</pre></details><details><summary>PDF sayfa 38 — kaynak metin</summary><pre class="code">                            int ara(const vector&lt;Goz&gt;&amp; t, int k) {
+                                const int m = t.size();
+                                int a = k % m, probe = 1;
+                                if (t[a].anahtar == BOS || t[a].anahtar % m != a) return t[a].anahtar == k ? 1 : -1;
+ P 11 · Ç Ö Z Ü M · 3 / 4       while (t[a].anahtar != k) {
+                                    if (t[a].carpan == 0) return -1;
+
+Computed
+                                    a = sonraki(t, a);
+                                    ++probe;
+                                }
+
+ chaining                   }
+                                return probe;
+
+
+
+
+                                                                                                                       43</pre></details><details><summary>PDF sayfa 39 — kaynak metin</summary><pre class="code">                            int main() {
+                                vector&lt;Goz&gt; t(11);
+                                const vector&lt;int&gt; anahtarlar = {27, 18, 29, 28, 39, 13, 16, 38, 53};
+                                for (int k : anahtarlar) ekle(t, k);
+ P 11 · Ç Ö Z Ü M · 4 / 4       for (int a = 0; a &lt; 11; ++a)
+                                    cout &lt;&lt; a &lt;&lt; &quot;:&quot; &lt;&lt; t[a].anahtar &lt;&lt; &quot;/&quot; &lt;&lt; t[a].carpan &lt;&lt; (a % 4 == 3 ? &quot;\n&quot; : &quot;   &quot;);
+
+Computed
+                                int toplam = 0;
+                                for (int k : anahtarlar) toplam += ara(t, k);
+                                cout &lt;&lt; &quot;\ntoplam &quot; &lt;&lt; toplam &lt;&lt; &quot;, ortalama &quot; &lt;&lt; toplam / 9.0 &lt;&lt; &#x27;\n&#x27;;
+
+ chaining                   }
+
+
+
+
+                            Ç I KT I
+
+                            0:16/1   1:38/0   2:13/0   3:-1/0
+                            4:-1/0   5:27/3   6:28/2   7:18/1
+                            8:29/0   9:53/0   10:39/0
+                            toplam 14, ortalama 1.55556
+
+
+
+
+                                                                                                                             44</pre></details></section><footer>Bu dosya çevrimdışı çalışır. Konu işaretleri tarayıcının localStorage alanında tutulur. Kodları derlemeden önce platform, kayıt yerleşimi ve dosya hata kontrollerini gözden geçir.</footer></main><script>const boxes=[...document.querySelectorAll(".done")];let state={};try{state=JSON.parse(localStorage.getItem("dosya-notlari-progress")||"{}")}catch(e){}function update(){let n=0;boxes.forEach(b=>{if(b.checked)n++});document.getElementById("count").textContent=`${n} / ${boxes.length} bölüm tamamlandı`;document.getElementById("bar").style.width=(100*n/boxes.length)+"%"}boxes.forEach(b=>{b.checked=!!state[b.dataset.id];b.addEventListener("change",()=>{state[b.dataset.id]=b.checked;try{localStorage.setItem("dosya-notlari-progress",JSON.stringify(state))}catch(e){}update()})});update();document.getElementById("search").addEventListener("input",e=>{let q=e.target.value.toLocaleLowerCase("tr").trim();document.querySelectorAll(".searchable").forEach(s=>s.classList.toggle("hidden",!!q&&!s.textContent.toLocaleLowerCase("tr").includes(q)))});function copyCode(b){let code=b.parentElement.nextElementSibling.innerText;navigator.clipboard.writeText(code).then(()=>{b.textContent="Kopyalandı";setTimeout(()=>b.textContent="Kopyala",1500)}).catch(()=>{b.textContent="Seçip kopyala"})}</script></body></html>
